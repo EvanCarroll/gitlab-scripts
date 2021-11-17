@@ -12,3 +12,11 @@ Currently there is one script,
 
 * [`reset-repo.sh`](./reset-repo.sh) which deletes all tags, packages, and
 	GitLab Releases associated with a project (git repository).
+
+This works by calling smaller scripts in `purge` (which you can target too).
+
+All of the scripts are invoked like this,
+
+```sh
+GITLAB_TOKEN="mytoken" ./reset-repo.sh <repo>
+```

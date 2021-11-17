@@ -17,58 +17,25 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
 	EOF
 	printf "\t%s\n" "GITLAB_TOKEN=\"mytoken\" $0 <repo>";
 	exit;
-elif [ -n "$1" ]; then
-	export PROJECT_ID=$(printf "%s" "$1" | jq -sRr @uri)
-else
+fi;
+
+if [ -z "$1" ]; then
 	printf "%s\n"   "You must provide a repo to target"
 	printf "\t%s\n" "GITLAB_TOKEN=\"mytoken\" $0 <repo>";
 	exit;
 fi;
 
 if [ -n "$PURGE_TAGS" ]; then
-	printf "purging %s\n" "tags";
-	TAGS=$(curl --silent \
-		--header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-		"https://gitlab.awe.eco.cpanel.net/api/v4/projects/$PROJECT_ID/repository/tags" |
-		jq -r .[].name
-	);
-	for id in $TAGS; do
-		curl --request DELETE \
-			--header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-			"https://gitlab.awe.eco.cpanel.net/api/v4/projects/$PROJECT_ID/repository/tags/$id"
-	done;
-	printf "\t... done purging %s\n" "tags";
+	sh ./purge/tags.sh "$1"
 fi;
 
 
 if [ -n "$PURGE_RELEASES" ]; then
-	printf "purging %s\n" "releases";
-	RELEASES=$(curl --silent \
-		--header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-		"https://gitlab.awe.eco.cpanel.net/api/v4/projects/$PROJECT_ID/releases" |
-		jq -r .[].tag_name
-	);
-	for id in $RELEASES; do
-		curl --request DELETE \
-			--header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-			"https://gitlab.awe.eco.cpanel.net/api/v4/projects/$PROJECT_ID/releases/$id"
-	done;
-	printf "\t... done purging %s\n" "releases";
+	sh ./purge/releases.sh "$1"
 fi;
 
 if [ -n "$PURGE_PACKAGES" ]; then
-	printf "purging %s\n" "packages";
-	PACKAGES=$(curl --silent \
-		--header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-		"https://gitlab.awe.eco.cpanel.net/api/v4/projects/$PROJECT_ID/packages" |
-		jq -r .[].id
-	)
-	for id in $PACKAGES; do
-		curl --request DELETE \
-			--header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-			"https://gitlab.awe.eco.cpanel.net/api/v4/projects/$PROJECT_ID/packages/$id"
-	done;
-	printf "\t... done purging %s\n" "releases";
+	sh ./purge/packages.sh "$1"
 fi;
 
 printf "%s\n" "done.";

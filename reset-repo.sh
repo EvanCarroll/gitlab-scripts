@@ -25,16 +25,16 @@ if [ -z "$1" ]; then
 	exit;
 fi;
 
-if [ -n "$PURGE_TAGS" ]; then
+if [ "$PURGE_TAGS" = 1 ]; then
 	sh ./purge/tags.sh "$1"
 fi;
 
 
-if [ -n "$PURGE_RELEASES" ]; then
+if [ "$PURGE_RELEASES" = 1 ]; then
 	sh ./purge/releases.sh "$1"
 fi;
 
-if [ -n "$PURGE_PACKAGES" ]; then
+if [ "$PURGE_PACKAGES" = 1 ]; then
 	sh ./purge/packages.sh "$1"
 fi;
 

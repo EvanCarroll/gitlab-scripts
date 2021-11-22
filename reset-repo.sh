@@ -25,6 +25,13 @@ if [ -z "$1" ]; then
 	exit;
 fi;
 
+if [ "$PURGE_PACKAGES" = 1 ]; then
+	sh ./purge/packages.sh "$1"
+	if [ -x "hooks/purge/packages/post" ]; then
+		./hooks/purge/packages/post "$1"
+	fi;
+fi;
+
 if [ "$PURGE_TAGS" = 1 ]; then
 	sh ./purge/tags.sh "$1"
 	if [ -x "hooks/purge/tags/post" ]; then
@@ -37,13 +44,6 @@ if [ "$PURGE_RELEASES" = 1 ]; then
 	sh ./purge/releases.sh "$1"
 	if [ -x "hooks/purge/releases/post" ]; then
 		./hooks/purge/releases/post "$1"
-	fi;
-fi;
-
-if [ "$PURGE_PACKAGES" = 1 ]; then
-	sh ./purge/packages.sh "$1"
-	if [ -x "hooks/purge/packages/post" ]; then
-		./hooks/purge/packages/post "$1"
 	fi;
 fi;
 

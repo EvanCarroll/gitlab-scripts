@@ -27,15 +27,28 @@ fi;
 
 if [ "$PURGE_TAGS" = 1 ]; then
 	sh ./purge/tags.sh "$1"
+	if [ -x "hooks/purge/tags/post" ]; then
+		./hooks/purge/tags/post "$1"
+	fi;
 fi;
 
 
 if [ "$PURGE_RELEASES" = 1 ]; then
 	sh ./purge/releases.sh "$1"
+	if [ -x "hooks/purge/releases/post" ]; then
+		./hooks/purge/releases/post "$1"
+	fi;
 fi;
 
 if [ "$PURGE_PACKAGES" = 1 ]; then
 	sh ./purge/packages.sh "$1"
+	if [ -x "hooks/purge/packages/post" ]; then
+		./hooks/purge/packages/post "$1"
+	fi;
+fi;
+
+if [ -x "hooks/post" ]; then
+	./hooks/purge/post
 fi;
 
 printf "%s\n" "done.";

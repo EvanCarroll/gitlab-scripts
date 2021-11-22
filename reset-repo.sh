@@ -52,3 +52,8 @@ if [ -x "hooks/post" ]; then
 fi;
 
 printf "%s\n" "done.";
+
+
+printf "** %s **" "DO NOT FORGET"
+printf "** %s **" "AFTER RESET IF FORCE PUSHING TO USE --tags"
+printf "\t%s"     "ie\ git push origin main --tags --force"

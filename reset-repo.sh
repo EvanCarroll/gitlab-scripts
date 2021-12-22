@@ -13,7 +13,7 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
 	exit;
 fi;
 
-. lib/assert_env.sh
+. lib/env.sh
 
 if [ -z "$1" ]; then
 	printf "%s\n"   "You must provide a repo to target"

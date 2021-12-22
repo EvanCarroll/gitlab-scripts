@@ -18,5 +18,7 @@ This works by calling smaller scripts in `purge` (which you can target too).
 All of the scripts are invoked like this,
 
 ```sh
-GITLAB_TOKEN="mytoken" ./reset-repo.sh <repo>
+GITLAB_HOST="gitlab.foo.bar" GITLAB_TOKEN="mytoken" ./reset-repo.sh <repo>
 ```
+
+Alternatively you can set these variables in [`./.env`](./.env)

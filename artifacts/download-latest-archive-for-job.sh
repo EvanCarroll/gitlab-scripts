@@ -12,8 +12,8 @@ fi;
 
 . lib/env.sh
 	
-if [ -z "$1" ] || [ -z "$2" ]; then
-	printf "%s\n"   "You must provide a repo, branch, and job to target"
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+	printf "%s\n"   "You must provide a repo, branch, and job to target";
 	printf "\t%s\n" "$0 <repo> <branch> <job>";
 	printf "\t%s\n" "ex\ $0 foo/bar main publish_docs";
 	exit;

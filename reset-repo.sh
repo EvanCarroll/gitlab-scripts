@@ -17,7 +17,7 @@ fi;
 
 if [ -z "$1" ]; then
 	printf "%s\n"   "You must provide a repo to target"
-	printf "\t%s\n" "GITLAB_TOKEN=\"mytoken\" $0 <repo>";
+	printf "\t%s\n" "$0 <repo>";
 	exit;
 fi;
 

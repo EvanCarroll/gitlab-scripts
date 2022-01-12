@@ -1,1 +1,3 @@
+/.env
 *.swp
+/artifacts.zip

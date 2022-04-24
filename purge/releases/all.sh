@@ -3,7 +3,7 @@
 ACTION="purging"
 TARGET="releases"
 
-. ./lib/env.sh
+. lib/env.sh
 
 if [ -n "$1" ]; then
 	export PROJECT_ID=$(printf "%s" "$1" | jq -sRr @uri)
